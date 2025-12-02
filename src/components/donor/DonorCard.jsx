@@ -1,6 +1,6 @@
 import React from 'react';
 import { Phone, MapPin, Calendar, User } from 'lucide-react';
-import { formatDate, getBloodTypeColor, calculateAge } from '../../utils/helpers';
+import { formatDate, calculateAge } from '../../utils/helpers';
 
 export default function DonorCard({ donor, onClick }) {
   return (

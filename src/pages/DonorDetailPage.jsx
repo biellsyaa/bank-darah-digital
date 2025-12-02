@@ -9,7 +9,6 @@ import EditDonorModal from '../components/modals/EditDonorModal';
 export default function DonorDetailPage({ donorId, onBack }) {
   const { donor, loading, error, refetch } = useDonor(donorId);
   const { deleteDonor, loading: deleting } = useDeleteDonor();
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const handleDelete = async () => {
