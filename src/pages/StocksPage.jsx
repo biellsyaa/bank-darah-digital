@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Search, AlertTriangle, Droplet, Package, TrendingDown } from 'lucide-react';
 import { useStocks } from '../hooks/useStocks';
 import StockList from '../components/stock/StockList';
@@ -8,6 +8,26 @@ export default function StocksPage({ onStockClick }) {
   const { stocks, loading, error, refetch } = useStocks();
   const [showAddModal, setShowAddModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
+        setIsHeaderVisible(false);
+      } else {
+        setIsHeaderVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const filteredStocks = Array.isArray(stocks)
     ? stocks.filter(stock =>
@@ -35,7 +55,11 @@ export default function StocksPage({ onStockClick }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-pink-50 pb-20">
       {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 to-red-700 shadow-2xl sticky top-0 z-50">
+      <div
+        className={`bg-gradient-to-r from-red-600 to-red-700 shadow-2xl sticky top-0 z-50 transition-transform duration-300 ${
+          isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 py-6">
           {/* Top Section */}
           <div className="flex items-center justify-between mb-6">

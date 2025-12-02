@@ -80,53 +80,6 @@ export default function SplashScreen({ onFinish }) {
           Setiap tetes darah adalah harapan hidup
         </p>
       </div>
-
-      {/* CSS Animations */}
-      <style jsx>{`
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-bounce-slow {
-          animation: bounce-slow 2s ease-in-out infinite;
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out forwards;
-        }
-
-        .animate-fade-in-delay {
-          opacity: 0;
-          animation: fade-in 0.8s ease-out 0.3s forwards;
-        }
-
-        .animate-fade-in-delay-2 {
-          opacity: 0;
-          animation: fade-in 0.8s ease-out 0.6s forwards;
-        }
-
-        .delay-300 { animation-delay: 300ms; }
-        .delay-700 { animation-delay: 700ms; }
-      `}</style>
-    </div>
-  );
-}
-
-
-export function AppWithSplash() {
-  const [showSplash, setShowSplash] = useState(true);
-
-  return showSplash ? (
-    <SplashScreen onFinish={() => setShowSplash(false)} />
-  ) : (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-gray-800">Selamat Datang! 🩸</h1>
     </div>
   );
 }

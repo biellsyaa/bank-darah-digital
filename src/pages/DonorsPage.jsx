@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Search, Users, TrendingUp, Activity } from 'lucide-react';
 import { useDonors } from '../hooks/useDonors';
 import DonorList from '../components/donor/DonorList';
@@ -8,8 +8,28 @@ export default function DonorsPage({ onDonorClick }) {
   const { donors, loading, error, refetch } = useDonors();
   const [showAddModal, setShowAddModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
-  const filteredDonors = Array.isArray(donors) 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
+        setIsHeaderVisible(false);
+      } else {
+        setIsHeaderVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const filteredDonors = Array.isArray(donors)
     ? donors.filter(donor =>
         donor.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
         donor.golongan_darah.toLowerCase().includes(searchQuery.toLowerCase())
@@ -20,8 +40,8 @@ export default function DonorsPage({ onDonorClick }) {
     refetch();
   };
 
-  const uniqueBloodTypes = Array.isArray(donors) 
-    ? [...new Set(donors.map(d => d.golongan_darah))].length 
+  const uniqueBloodTypes = Array.isArray(donors)
+    ? [...new Set(donors.map(d => d.golongan_darah))].length
     : 0;
 
   const recentDonors = Array.isArray(donors)
@@ -36,7 +56,11 @@ export default function DonorsPage({ onDonorClick }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-pink-50 pb-20">
       {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 to-red-700 shadow-2xl sticky top-0 z-50">
+      <div
+        className={`bg-gradient-to-r from-red-600 to-red-700 shadow-2xl sticky top-0 z-50 transition-transform duration-300 ${
+          isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 py-6">
           {/* Top Section */}
           <div className="flex items-center justify-between mb-6">
