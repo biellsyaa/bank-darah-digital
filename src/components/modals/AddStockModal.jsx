@@ -91,7 +91,7 @@ export default function AddStockModal({ isOpen, onClose, onSuccess }) {
   const minDate = tomorrow.toISOString().split('T')[0];
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 backdrop-blur-md flex items-start justify-center z-[60] p-4 pt-20">
       <div className="bg-white rounded-2xl w-full max-w-md">
         {/* Header */}
         <div className="bg-red-600 text-white p-4 flex justify-between items-center rounded-t-2xl">
