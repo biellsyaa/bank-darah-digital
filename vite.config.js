@@ -9,13 +9,6 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: [
-        'favicon.ico',
-        'icon-192.png',
-        'icon-512.png',
-        'icon-maskable-192.png',
-        'icon-maskable-512.png'
-      ],
       manifest: {
         name: 'Bank Darah Digital',
         short_name: 'Bank Darah',
@@ -28,23 +21,23 @@ export default defineConfig({
         orientation: 'portrait',
         icons: [
           {
-            src: '/icon-192.png',
+            src: '/icons/icon-192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: '/icon-512.png',
+            src: '/icons/icon-512.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: '/icon-maskable-192.png',
+            src: '/icons/icon-maskable-192.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'maskable'
           },
           {
-            src: '/icon-maskable-512.png',
+            src: '/icons/icon-maskable-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable'
@@ -53,12 +46,6 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-        cleanupOutdatedCaches: true,
-        clientsClaim: true,
-      },
-      devOptions: {
-        enabled: true,          // PWA aktif saat development
-        navigateFallback: '/index.html',
       },
     })
   ],
