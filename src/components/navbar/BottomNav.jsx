@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Users, Droplet, User } from 'lucide-react';
+import { Users, Droplet, User } from 'lucide-react';
 
 export default function BottomNav({ currentPage, onNavigate }) {
   const navItems = [
